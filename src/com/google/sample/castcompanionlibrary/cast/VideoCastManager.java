@@ -1096,16 +1096,11 @@ public class VideoCastManager extends BaseCastManager
             TransientNetworkDisconnectionException, NoConnectionException {
         LOGD(TAG, "play()");
         checkConnectivity();
-        try {
-            if (mRemoteMediaPlayer == null) {
-                LOGE(TAG, "Trying to play a video with no active media session");
-                throw new NoConnectionException();
-            }
-            mRemoteMediaPlayer.play(mApiClient);
-        } catch (IOException e) {
-            LOGE(TAG, "Failed to play media", e);
-            throw new CastException(mContext.getString(R.string.failed_to_play), e);
-        }
+        if (mRemoteMediaPlayer == null) {
+		    LOGE(TAG, "Trying to play a video with no active media session");
+		    throw new NoConnectionException();
+		}
+		mRemoteMediaPlayer.play(mApiClient);
     }
 
     /**
@@ -1132,16 +1127,11 @@ public class VideoCastManager extends BaseCastManager
             TransientNetworkDisconnectionException, NoConnectionException {
         LOGD(TAG, "stop()");
         checkConnectivity();
-        try {
-            if (mRemoteMediaPlayer == null) {
-                LOGE(TAG, "Trying to stop a stream with no active media session");
-                throw new NoConnectionException();
-            }
-            mRemoteMediaPlayer.stop(mApiClient, customData);
-        } catch (IOException e) {
-            LOGE(TAG, "Failed to stop media", e);
-            throw new CastException(mContext.getString(R.string.failed_to_stop), e);
-        }
+        if (mRemoteMediaPlayer == null) {
+		    LOGE(TAG, "Trying to stop a stream with no active media session");
+		    throw new NoConnectionException();
+		}
+		mRemoteMediaPlayer.stop(mApiClient, customData);
     }
 
     /**
@@ -1184,12 +1174,7 @@ public class VideoCastManager extends BaseCastManager
             LOGE(TAG, "Trying to pause a video with no active media session");
             throw new NoConnectionException();
         }
-        try {
-            mRemoteMediaPlayer.pause(mApiClient, customData);
-        } catch (IOException e) {
-            LOGE(TAG, "Failed to pause media", e);
-            throw new CastException(mContext, R.string.failed_to_pause, e);
-        }
+        mRemoteMediaPlayer.pause(mApiClient, customData);
     }
 
     /**
@@ -1882,7 +1867,7 @@ public class VideoCastManager extends BaseCastManager
     Builder getCastOptionBuilder(CastDevice device) {
         Builder builder = Cast.CastOptions.builder(mSelectedCastDevice, new CastListener());
         if (isFeatureEnabled(FEATURE_DEBUGGING)) {
-            builder.setDebuggingEnabled();
+            builder.setVerboseLoggingEnabled(true);
         }
         return builder;
     }
