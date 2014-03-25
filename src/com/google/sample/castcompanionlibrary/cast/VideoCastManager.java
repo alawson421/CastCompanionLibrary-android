@@ -1097,10 +1097,10 @@ public class VideoCastManager extends BaseCastManager
         LOGD(TAG, "play()");
         checkConnectivity();
         if (mRemoteMediaPlayer == null) {
-		    LOGE(TAG, "Trying to play a video with no active media session");
-		    throw new NoConnectionException();
-		}
-		mRemoteMediaPlayer.play(mApiClient);
+            LOGE(TAG, "Trying to play a video with no active media session");
+            throw new NoConnectionException();
+        }
+        mRemoteMediaPlayer.play(mApiClient);
     }
 
     /**
@@ -1128,10 +1128,10 @@ public class VideoCastManager extends BaseCastManager
         LOGD(TAG, "stop()");
         checkConnectivity();
         if (mRemoteMediaPlayer == null) {
-		    LOGE(TAG, "Trying to stop a stream with no active media session");
-		    throw new NoConnectionException();
-		}
-		mRemoteMediaPlayer.stop(mApiClient, customData);
+            LOGE(TAG, "Trying to stop a stream with no active media session");
+            throw new NoConnectionException();
+        }
+        mRemoteMediaPlayer.stop(mApiClient, customData);
     }
 
     /**
